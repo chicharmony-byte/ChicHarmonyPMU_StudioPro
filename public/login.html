@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PMU Studio - Login</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            background: #0F0F0F;
+            color: #FFFFFF;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            max-width: 390px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        
+        .header {
+            text-align: center;
+            padding: 60px 0 40px 0;
+        }
+        
+        .logo {
+            width: 200px;
+            height: auto;
+            margin: 0 auto 20px auto;
+            display: block;
+            object-fit: contain;
+        }
+        
+        .app-name {
+            font-size: 36px;
+            font-weight: bold;
+            color: #FFFFFF;
+            margin-bottom: 8px;
+            letter-spacing: 3px;
+        }
+        
+        .slogan {
+            font-size: 18px;
+            color: #FFFFFF;
+            font-style: italic;
+            opacity: 0.9;
+            margin-bottom: 8px;
+        }
+        
+        .welcome {
+            font-size: 14px;
+            color: #9CA3AF;
+            margin-top: 8px;
+        }
+        
+        .form-container {
+            flex: 1;
+            padding-top: 20px;
+        }
+        
+        .title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #FFFFFF;
+            text-align: center;
+            margin-bottom: 8px;
+        }
+        
+        .subtitle {
+            font-size: 16px;
+            color: #9CA3AF;
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        
+        .input-container {
+            display: flex;
+            align-items: center;
+            background: #1F1F1F;
+            border-radius: 12px;
+            margin-bottom: 16px;
+            padding: 0 16px;
+            border: 1px solid #374151;
+        }
+        
+        .input-icon {
+            color: #9CA3AF;
+            margin-right: 12px;
+            font-size: 20px;
+        }
+        
+        .input {
+            flex: 1;
+            color: #FFFFFF;
+            font-size: 16px;
+            padding: 16px 0;
+            background: transparent;
+            border: none;
+            outline: none;
+        }
+        
+        .input::placeholder {
+            color: #6B7280;
+        }
+        
+        .login-button {
+            width: 100%;
+            background: #E879F9;
+            border: none;
+            border-radius: 12px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            margin: 8px 0 24px 0;
+            font-size: 18px;
+            font-weight: 600;
+            color: #FFFFFF;
+            text-decoration: none;
+        }
+        
+        .login-button:hover {
+            opacity: 0.9;
+        }
+        
+        .register-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+        
+        .register-text {
+            color: #9CA3AF;
+            font-size: 16px;
+        }
+        
+        .register-link {
+            color: #E879F9;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+        }
+        
+        .plans-container {
+            background: #1F1F1F;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 24px;
+            border: 1px solid #374151;
+        }
+        
+        .plans-title {
+            color: #FFFFFF;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+        
+        .plan-card {
+            background: #2A2A2A;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+            border: 1px solid #374151;
+            position: relative;
+        }
+        
+        .plan-card.popular {
+            border-color: #E879F9;
+            border-width: 2px;
+        }
+        
+        .plan-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        
+        .plan-name {
+            color: #FFFFFF;
+            font-size: 16px;
+            font-weight: 600;
+        }
+        
+        .plan-price {
+            color: #E879F9;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        
+        .plan-features {
+            color: #9CA3AF;
+            font-size: 12px;
+            line-height: 16px;
+        }
+        
+        .popular-badge {
+            position: absolute;
+            top: -8px;
+            right: 12px;
+            background: #E879F9;
+            padding: 4px 8px;
+            border-radius: 8px;
+            font-size: 10px;
+            font-weight: bold;
+            color: #FFFFFF;
+        }
+        
+        .test-accounts {
+            background: #1F1F1F;
+            border-radius: 12px;
+            padding: 16px;
+            border: 1px solid #374151;
+            margin-bottom: 20px;
+        }
+        
+        .test-title {
+            color: #FFFFFF;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        
+        .test-account {
+            display: flex;
+            margin-bottom: 8px;
+        }
+        
+        .test-role {
+            color: #E879F9;
+            font-size: 12px;
+            font-weight: 600;
+            width: 70px;
+        }
+        
+        .test-email {
+            color: #9CA3AF;
+            font-size: 12px;
+            flex: 1;
+        }
+        
+        .footer {
+            background: #1F1F1F;
+            border-top: 1px solid #2A2A2A;
+            padding: 20px 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .footer-logo-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        
+        .footer-main-logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 20px;
+            margin-right: 12px;
+        }
+        
+        .footer-brand-text {
+            font-size: 18px;
+            font-weight: bold;
+            color: #E879F9;
+            font-style: italic;
+        }
+        
+        .footer-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .copyright {
+            font-size: 12px;
+            color: #9CA3AF;
+            font-weight: 500;
+            margin-right: 12px;
+        }
+        
+        .footer-accent-logo {
+            width: 20px;
+            height: 20px;
+            border-radius: 10px;
+        }
+        
+        .error-message {
+            background: #FEE2E2;
+            border: 1px solid #FECACA;
+            color: #DC2626;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            text-align: center;
+            font-size: 14px;
+        }
+        
+        .success-message {
+            background: #D1FAE5;
+            border: 1px solid #A7F3D0;
+            color: #065F46;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            text-align: center;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <img src="https://customer-assets.emergentagent.com/job_beauty-tech-3/artifacts/h8yumqj0_20190719_015613816_iOS-03%20%281%29.png" 
+                 alt="PMU Studio Logo" class="logo" style="width: 200px; height: auto; object-fit: contain;">
+            <div class="app-name">PMU STUDIO</div>
+            <div class="slogan">Professional Micropigmentation</div>
+            <div class="welcome">Gestiona tu negocio de micropigmentación</div>
+        </div>
+
+        <!-- Login Form -->
+        <div class="form-container">
+            <div class="title">Bienvenido</div>
+            <div class="subtitle">Inicia sesión para acceder a tu cuenta</div>
+
+            <!-- Error/Success Messages -->
+            <div id="message-container"></div>
+
+            <form action="https://pmu-dashboard.preview.emergentagent.com/api/auth/login" method="POST" id="loginForm">
+                <!-- Email Input -->
+                <div class="input-container">
+                    <span class="input-icon">✉</span>
+                    <input type="email" name="username" class="input" placeholder="Email" required>
+                </div>
+
+                <!-- Password Input -->
+                <div class="input-container">
+                    <span class="input-icon">🔒</span>
+                    <input type="password" name="password" class="input" placeholder="Contraseña" required>
+                </div>
+
+                <!-- Login Button -->
+                <button type="submit" class="login-button">
+                    Iniciar Sesión →
+                </button>
+            </form>
+
+            <!-- Register Link -->
+            <div class="register-container">
+                <span class="register-text">¿No tienes cuenta? </span>
+                <a href="subscribe.html" class="register-link">Ver Planes y Suscribirse</a>
+            </div>
+
+            <!-- Subscription Plans -->
+            <div class="plans-container">
+                <div class="plans-title">Planes Disponibles:</div>
+                
+                <div class="plan-card">
+                    <div class="plan-header">
+                        <div class="plan-name">Standard</div>
+                        <div class="plan-price">$35/mes</div>
+                    </div>
+                    <div class="plan-features">✓ Gestión de clientes • ✓ Citas • ✓ Notificaciones</div>
+                </div>
+
+                <div class="plan-card">
+                    <div class="plan-header">
+                        <div class="plan-name">Premium</div>
+                        <div class="plan-price">$65/mes</div>
+                    </div>
+                    <div class="plan-features">Standard + ✓ Finanzas • ✓ Inventario</div>
+                </div>
+
+                <div class="plan-card popular">
+                    <div class="plan-header">
+                        <div class="plan-name">Executive</div>
+                        <div class="plan-price">$120/mes</div>
+                    </div>
+                    <div class="plan-features">Todo + ✓ Herramientas IA • ✓ Análisis avanzado</div>
+                    <div class="popular-badge">MÁS POPULAR</div>
+                </div>
+            </div>
+
+            <!-- Test Accounts -->
+            <div class="test-accounts">
+                <div class="test-title">Cuentas de Prueba:</div>
+                <div class="test-account">
+                    <div class="test-role">Standard:</div>
+                    <div class="test-email">standard@test.com | pass123</div>
+                </div>
+                <div class="test-account">
+                    <div class="test-role">Premium:</div>
+                    <div class="test-email">premium@test.com | pass123</div>
+                </div>
+                <div class="test-account">
+                    <div class="test-role">Executive:</div>
+                    <div class="test-email">executive@test.com | pass123</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <img src="https://customer-assets.emergentagent.com/job_beauty-tech-3/artifacts/lcnktjq9_20190719_015613816_iOS-03%20%282%29.png" 
+             alt="Chic Harmony Logo" 
+             style="width: auto; height: 40px; margin-bottom: 8px; object-fit: contain;">
+        <div class="footer-content">
+            <div class="copyright">© 2025 Chic Harmony – v1.0</div>
+        </div>
+    </div>
+
+    <script>
+        // Check for URL parameters to show messages
+        const urlParams = new URLSearchParams(window.location.search);
+        const error = urlParams.get('error');
+        const success = urlParams.get('success');
+        
+        const messageContainer = document.getElementById('message-container');
+        
+        if (error) {
+            messageContainer.innerHTML = '<div class="error-message">❌ ' + decodeURIComponent(error) + '</div>';
+        }
+        
+        if (success) {
+            messageContainer.innerHTML = '<div class="success-message">✅ ' + decodeURIComponent(success) + '</div>';
+        }
+
+        // Quick fill buttons for testing
+        function fillForm(email, password) {
+            document.querySelector('input[name="username"]').value = email;
+            document.querySelector('input[name="password"]').value = password;
+        }
+
+        // Add click handlers to test accounts
+        document.querySelectorAll('.test-account').forEach((account, index) => {
+            account.style.cursor = 'pointer';
+            account.addEventListener('click', () => {
+                const emails = ['standard@test.com', 'premium@test.com', 'executive@test.com'];
+                fillForm(emails[index], 'pass123');
+            });
+        });
+    </script>
+</body>
+</html>

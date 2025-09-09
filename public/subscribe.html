@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PMU Studio - Planes de Suscripción</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            background: #0F0F0F;
+            color: #FFFFFF;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            max-width: 390px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        
+        .header {
+            padding: 24px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .back-button {
+            position: absolute;
+            left: 0;
+            background: none;
+            border: none;
+            color: #FFFFFF;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 8px;
+        }
+        
+        .header-content {
+            text-align: center;
+        }
+        
+        .logo {
+            width: 60px;
+            height: 60px;
+            border-radius: 30px;
+            margin: 0 auto 16px auto;
+            display: block;
+            object-fit: cover;
+        }
+        
+        .title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #FFFFFF;
+            margin-bottom: 8px;
+        }
+        
+        .subtitle {
+            font-size: 16px;
+            color: #9CA3AF;
+        }
+        
+        .content {
+            flex: 1;
+            padding: 20px 0;
+        }
+        
+        .billing-toggle {
+            display: flex;
+            background: #1F1F1F;
+            border-radius: 12px;
+            padding: 4px;
+            margin-bottom: 16px;
+        }
+        
+        .toggle-button {
+            flex: 1;
+            padding: 12px;
+            text-align: center;
+            border-radius: 8px;
+            cursor: pointer;
+            border: none;
+            background: transparent;
+            color: #9CA3AF;
+            font-size: 16px;
+            font-weight: 600;
+        }
+        
+        .toggle-active {
+            background: #E879F9;
+            color: #FFFFFF;
+        }
+        
+        .savings-text {
+            text-align: center;
+            color: #10B981;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 24px;
+        }
+        
+        .plans-container {
+            margin-bottom: 32px;
+        }
+        
+        .plan-card {
+            background: #1F1F1F;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 16px;
+            border: 2px solid #374151;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .plan-card:hover {
+            border-color: #E879F9;
+        }
+        
+        .plan-card.selected {
+            border-color: #E879F9;
+        }
+        
+        .plan-card.popular {
+            border-color: #8B5CF6;
+        }
+        
+        .popular-badge {
+            position: absolute;
+            top: -8px;
+            right: 20px;
+            background: #8B5CF6;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: bold;
+            color: #FFFFFF;
+        }
+        
+        .plan-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        
+        .plan-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 16px;
+            font-size: 24px;
+        }
+        
+        .plan-info {
+            flex: 1;
+        }
+        
+        .plan-name {
+            font-size: 20px;
+            font-weight: bold;
+            color: #FFFFFF;
+            margin-bottom: 4px;
+        }
+        
+        .price-container {
+            display: flex;
+            align-items: baseline;
+        }
+        
+        .plan-price {
+            font-size: 24px;
+            font-weight: bold;
+            color: #E879F9;
+        }
+        
+        .price-period {
+            font-size: 16px;
+            color: #9CA3AF;
+            margin-left: 4px;
+        }
+        
+        .savings-amount {
+            font-size: 12px;
+            color: #10B981;
+            margin-top: 2px;
+        }
+        
+        .select-indicator {
+            width: 24px;
+            height: 24px;
+            border-radius: 12px;
+            border: 2px solid #9CA3AF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .plan-card.selected .select-indicator {
+            border-color: #E879F9;
+            background: #E879F9;
+        }
+        
+        .plan-card.selected .select-indicator::after {
+            content: '✓';
+            color: #FFFFFF;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .features-container {
+            margin-top: 8px;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        
+        .feature-text {
+            color: #FFFFFF;
+            font-size: 14px;
+            margin-left: 8px;
+        }
+        
+        .security-info {
+            display: flex;
+            background: #1F1F1F;
+            border-radius: 12px;
+            padding: 16px;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+        
+        .security-text {
+            margin-left: 12px;
+            flex: 1;
+        }
+        
+        .security-title {
+            color: #FFFFFF;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        
+        .security-description {
+            color: #9CA3AF;
+            font-size: 12px;
+            line-height: 16px;
+        }
+        
+        .subscribe-container {
+            padding: 24px 0;
+            border-top: 1px solid #2A2A2A;
+        }
+        
+        .subscribe-button {
+            width: 100%;
+            background: #E879F9;
+            border: none;
+            border-radius: 12px;
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            margin-bottom: 12px;
+            font-size: 18px;
+            font-weight: 600;
+            color: #FFFFFF;
+        }
+        
+        .subscribe-button:hover {
+            opacity: 0.9;
+        }
+        
+        .subscribe-note {
+            text-align: center;
+            color: #9CA3AF;
+            font-size: 12px;
+        }
+        
+        .footer {
+            padding: 16px;
+            text-align: center;
+        }
+        
+        .footer-text {
+            color: #6B7280;
+            font-size: 10px;
+        }
+        
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <button class="back-button" onclick="goBack()">←</button>
+            <div class="header-content">
+                <img src="https://customer-assets.emergentagent.com/job_artistry-suite/artifacts/ffakmkmk_flor%20sola.png" 
+                     alt="PMU Studio Logo" class="logo">
+                <div class="title">Elegir Plan</div>
+                <div class="subtitle">Selecciona el plan perfecto para tu negocio</div>
+            </div>
+        </div>
+
+        <div class="content">
+            <!-- Billing Cycle Toggle -->
+            <div class="billing-toggle">
+                <button class="toggle-button toggle-active" id="monthlyToggle" onclick="setBillingCycle('monthly')">
+                    Mensual
+                </button>
+                <button class="toggle-button" id="annualToggle" onclick="setBillingCycle('annual')">
+                    Anual
+                </button>
+            </div>
+
+            <div class="savings-text hidden" id="savingsText">💰 Ahorra hasta $240 USD al año</div>
+
+            <!-- Plans -->
+            <div class="plans-container">
+                <!-- Standard Plan -->
+                <div class="plan-card" id="standard" onclick="selectPlan('standard')">
+                    <div class="plan-header">
+                        <div class="plan-icon" style="background: #10B981;">🏢</div>
+                        <div class="plan-info">
+                            <div class="plan-name">Standard</div>
+                            <div class="price-container">
+                                <div class="plan-price" id="standardPrice">$35</div>
+                                <div class="price-period" id="standardPeriod">/mes</div>
+                            </div>
+                            <div class="savings-amount hidden" id="standardSavings">Ahorras $70</div>
+                        </div>
+                        <div class="select-indicator"></div>
+                    </div>
+
+                    <div class="features-container">
+                        <div class="feature-item">
+                            <span style="color: #10B981;">✓</span>
+                            <div class="feature-text">Gestión completa de clientes</div>
+                        </div>
+                        <div class="feature-item">
+                            <span style="color: #10B981;">✓</span>
+                            <div class="feature-text">Sistema de citas y calendario</div>
+                        </div>
+                        <div class="feature-item">
+                            <span style="color: #10B981;">✓</span>
+                            <div class="feature-text">Notificaciones y recordatorios</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Premium Plan -->
+                <div class="plan-card popular selected" id="premium" onclick="selectPlan('premium')">
+                    <div class="popular-badge">MÁS POPULAR</div>
+                    <div class="plan-header">
+                        <div class="plan-icon" style="background: #8B5CF6;">👑</div>
+                        <div class="plan-info">
+                            <div class="plan-name">Premium</div>
+                            <div class="price-container">
+                                <div class="plan-price" id="premiumPrice">$65</div>
+                                <div class="price-period" id="premiumPeriod">/mes</div>
+                            </div>
+                            <div class="savings-amount hidden" id="premiumSavings">Ahorras $130</div>
+                        </div>
+                        <div class="select-indicator"></div>
+                    </div>
+
+                    <div class="features-container">
+                        <div class="feature-item">
+                            <span style="color: #8B5CF6;">✓</span>
+                            <div class="feature-text">Todo lo de Standard</div>
+                        </div>
+                        <div class="feature-item">
+                            <span style="color: #8B5CF6;">✓</span>
+                            <div class="feature-text">Dashboard financiero completo</div>
+                        </div>
+                        <div class="feature-item">
+                            <span style="color: #8B5CF6;">✓</span>
+                            <div class="feature-text">Gestión de inventario</div>
+                        </div>
+                        <div class="feature-item">
+                            <span style="color: #8B5CF6;">✓</span>
+                            <div class="feature-text">Reportes y análisis</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Executive Plan -->
+                <div class="plan-card" id="executive" onclick="selectPlan('executive')">
+                    <div class="plan-header">
+                        <div class="plan-icon" style="background: #EC4899;">⭐</div>
+                        <div class="plan-info">
+                            <div class="plan-name">Executive</div>
+                            <div class="price-container">
+                                <div class="plan-price" id="executivePrice">$120</div>
+                                <div class="price-period" id="executivePeriod">/mes</div>
+                            </div>
+                            <div class="savings-amount hidden" id="executiveSavings">Ahorras $240</div>
+                        </div>
+                        <div class="select-indicator"></div>
+                    </div>
+
+                    <div class="features-container">
+                        <div class="feature-item">
+                            <span style="color: #EC4899;">✓</span>
+                            <div class="feature-text">Todo lo de Premium</div>
+                        </div>
+                        <div class="feature-item">
+                            <span style="color: #EC4899;">✓</span>
+                            <div class="feature-text">Herramientas IA avanzadas</div>
+                        </div>
+                        <div class="feature-item">
+                            <span style="color: #EC4899;">✓</span>
+                            <div class="feature-text">Análisis de simetría facial</div>
+                        </div>
+                        <div class="feature-item">
+                            <span style="color: #EC4899;">✓</span>
+                            <div class="feature-text">Recomendador de pigmentos</div>
+                        </div>
+                        <div class="feature-item">
+                            <span style="color: #EC4899;">✓</span>
+                            <div class="feature-text">Soporte prioritario</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Payment Security -->
+            <div class="security-info">
+                <span style="color: #10B981; font-size: 24px;">🛡️</span>
+                <div class="security-text">
+                    <div class="security-title">Pago 100% Seguro</div>
+                    <div class="security-description">
+                        Procesado por Stripe. Tus datos están protegidos con encriptación de nivel bancario.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Subscribe Button -->
+        <div class="subscribe-container">
+            <button class="subscribe-button" onclick="handleSubscribe()">
+                <span id="subscribeButtonText">Suscribirse por $65/mes</span>
+                <span style="margin-left: 8px;">→</span>
+            </button>
+            <div class="subscribe-note">
+                Cancela en cualquier momento. Sin compromisos.
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <img src="https://customer-assets.emergentagent.com/job_beauty-tech-3/artifacts/lcnktjq9_20190719_015613816_iOS-03%20%282%29.png" 
+             alt="Chic Harmony Logo" 
+             style="width: auto; height: 40px; margin-bottom: 8px; object-fit: contain;">
+        <div class="footer-text">© 2025 Chic Harmony – PMU Studio v1.0</div>
+    </div>
+
+    <script>
+        let selectedPlan = 'premium';
+        let billingCycle = 'monthly';
+
+        const plans = {
+            standard: { monthly: 35, annual: 350 },
+            premium: { monthly: 65, annual: 650 },
+            executive: { monthly: 120, annual: 1200 }
+        };
+
+        function goBack() {
+            window.history.back();
+        }
+
+        function setBillingCycle(cycle) {
+            billingCycle = cycle;
+            
+            // Update toggle buttons
+            document.getElementById('monthlyToggle').classList.toggle('toggle-active', cycle === 'monthly');
+            document.getElementById('annualToggle').classList.toggle('toggle-active', cycle === 'annual');
+            
+            // Show/hide savings text
+            document.getElementById('savingsText').classList.toggle('hidden', cycle === 'monthly');
+            
+            // Update prices for all plans
+            updatePrices();
+        }
+
+        function selectPlan(planId) {
+            selectedPlan = planId;
+            
+            // Update selected styling
+            document.querySelectorAll('.plan-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            document.getElementById(planId).classList.add('selected');
+            
+            // Update subscribe button
+            updateSubscribeButton();
+        }
+
+        function updatePrices() {
+            Object.keys(plans).forEach(planId => {
+                const price = plans[planId][billingCycle];
+                const period = billingCycle === 'monthly' ? '/mes' : '/año';
+                
+                document.getElementById(planId + 'Price').textContent = '$' + price;
+                document.getElementById(planId + 'Period').textContent = period;
+                
+                // Show/hide savings
+                const savingsElement = document.getElementById(planId + 'Savings');
+                if (billingCycle === 'annual') {
+                    const monthlyCost = plans[planId].monthly * 12;
+                    const savings = monthlyCost - plans[planId].annual;
+                    savingsElement.textContent = 'Ahorras $' + savings;
+                    savingsElement.classList.remove('hidden');
+                } else {
+                    savingsElement.classList.add('hidden');
+                }
+            });
+            
+            updateSubscribeButton();
+        }
+
+        function updateSubscribeButton() {
+            const price = plans[selectedPlan][billingCycle];
+            const period = billingCycle === 'monthly' ? '/mes' : '/año';
+            document.getElementById('subscribeButtonText').textContent = `Suscribirse por $${price}${period}`;
+        }
+
+        function handleSubscribe() {
+            const planName = selectedPlan.charAt(0).toUpperCase() + selectedPlan.slice(1);
+            const price = plans[selectedPlan][billingCycle];
+            const period = billingCycle === 'monthly' ? 'Mensual' : 'Anual';
+            
+            if (confirm(`¿Confirmas la suscripción?\n\nPlan: ${planName} ${period}\nPrecio: $${price} USD\n\n¿Continuar con el pago?`)) {
+                alert('🚧 Demo Mode\n\nEn producción, aquí se abriría Stripe Checkout para procesar el pago de forma segura.\n\n✅ Simulando pago exitoso...');
+                
+                // Simulate successful payment and redirect to dashboard
+                setTimeout(() => {
+                    alert('✅ Pago Exitoso!\n\nSuscripción activada correctamente. Bienvenido a PMU Studio!');
+                    window.location.href = `/dashboard?role=${selectedPlan}&username=Usuario&plan=${planName}`;
+                }, 1000);
+            }
+        }
+
+        // Initialize
+        updatePrices();
+    </script>
+</body>
+</html>
