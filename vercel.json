@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "name": "chic-harmony-pmu-studio-pro",
+  "name": "pmu-studio-pro",
   "builds": [
     {
       "src": "package.json",
@@ -26,60 +26,8 @@
       }
     },
     {
-      "src": "/icons/(.*)",
-      "headers": {
-        "Cache-Control": "public, max-age=31536000, immutable"
-      }
-    },
-    {
-      "src": "/api/(.*)",
-      "dest": "https://pmu-dashboard.preview.emergentagent.com/api/$1",
-      "headers": {
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-        "Access-Control-Allow-Headers": "Content-Type, Authorization"
-      }
-    },
-    {
       "src": "/(.*)",
       "dest": "/index.html"
     }
-  ],
-  "headers": [
-    {
-      "source": "/(.*)",
-      "headers": [
-        {
-          "key": "X-Content-Type-Options",
-          "value": "nosniff"
-        },
-        {
-          "key": "X-Frame-Options",
-          "value": "DENY"
-        },
-        {
-          "key": "X-XSS-Protection",
-          "value": "1; mode=block"
-        },
-        {
-          "key": "Strict-Transport-Security",
-          "value": "max-age=31536000; includeSubDomains; preload"
-        }
-      ]
-    }
-  ],
-  "functions": {
-    "app/**/*.js": {
-      "runtime": "@vercel/node@3"
-    }
-  },
-  "redirects": [
-    {
-      "source": "/pmu-studio",
-      "destination": "/",
-      "permanent": true
-    }
-  ],
-  "cleanUrls": true,
-  "trailingSlash": false
+  ]
 }
