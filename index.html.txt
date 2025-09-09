@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta httpEquiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1.0001,user-scalable=no,viewport-fit=cover">
+  <title>PMU Studio Pro</title>
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#E879F9">
+</head>
+<body>
+  <div id="root"></div>
+  <script src="/_expo/static/js/web/entry.js"></script>
+</body>
+</html>
